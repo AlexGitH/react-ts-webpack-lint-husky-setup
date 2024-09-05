@@ -7,3 +7,34 @@ This is an example for React Typescript Webpack Project setup.
 ```sh
 npm start
 ```
+
+## Installation
+
+```sh
+npm i react react-dom
+npm i -D typescript @types/react @types/react-dom
+# generate tsconfig.json with default values 
+npx tsc --init
+# configure parameters in tsconfig.json according example in tsconfig-example.json
+
+# install other packages for babel
+npm i -D @babel/core @babel
+/preset-env @babel/preset-react @babel/preset-typescript
+```
+
+Add `.babelrc` configuration file:
+
+```json
+{
+    "presets": [
+        "@babel/preset-env",
+        [
+            "@babel/preset-react",
+            {
+                "runtime": "automatic"
+            }
+        ],
+        "@babel/preset-typescript"
+    ]
+}
+```
