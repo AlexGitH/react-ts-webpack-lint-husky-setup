@@ -46,4 +46,52 @@ npm i -D webpack webpack-cli webpack-dev-server html-webpack-plugin
 npm i -D babel-loader
 ```
 
-Configure a `webpack.config.js`
+## Configure a `webpack.config.js`
+
+### Support styles and image loading including SVG and fonts
+
+Install style loaders for css importing:
+
+```sh
+npm i -D css-loader style-loader
+```
+
+Then add next config into `webpack.config.js` rule section
+
+```js
+    //....
+    {
+      test: /\.css$/,
+      use: ['style-loader', 'css-loader']
+    }
+    //....
+```
+
+Add another config to import images:
+
+```js
+    //....
+    {
+      test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
+      type: 'asset/resource'
+    }
+    //....
+```
+
+Additional options should be added to webpack for loading SVG and Fonts:
+
+```js
+    //....
+    {
+      test: /\.(woff(2)?|eot|ttf|otf|svg)$/,
+      type: 'asset/inline'
+    }
+    //....
+```
+
+Also do not forget to declare types to import modules in `declarations.d.ts`:
+
+```ts
+declare module '*.png';
+declare module '*.svg';
+```

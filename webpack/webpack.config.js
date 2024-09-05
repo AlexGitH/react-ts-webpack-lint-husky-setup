@@ -21,17 +21,26 @@ module.exports = {
   ],
   // process all files with extentions
   resolve: {
+    //allows to import modules without extensions
     extensions: ['.tsx', '.ts', '.js'],
   },
   module: {
-    rules: [
-      {
-        test: /\.(ts|js)x?$/,
-        exclude: /node_modules/,
-        use: [{
-          loader: 'babel-loader',
-        }]
-      }
-    ]
+    rules: [{
+      // process files by regex
+      test: /\.(ts|js)x?$/,
+      exclude: /\.?(node_modules|tmp)/,
+      use: [{
+        loader: 'babel-loader',
+      }]
+    },{
+      test: /\.css$/,
+      use: ['style-loader', 'css-loader']
+    },{
+      test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
+      type: 'asset/resource'
+    },{
+      test: /\.(woff(2)?|eot|ttf|otf|svg)$/,
+      type: 'asset/inline'
+    }]
   }
 }
