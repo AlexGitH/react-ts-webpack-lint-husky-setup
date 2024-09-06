@@ -205,3 +205,29 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 ```
 
 Now it is possible to change text or styles (see. ClickCounter component)
+
+### Add eslint
+
+Install eslint and relatec packages.
+
+>NOTE: `eslint` should be installed with all eslint plugins to resolve conflicts properly.
+
+```sh
+npm i -D eslint eslint-plugin-react eslint-plugin-react-hooks
+```
+
+Install packages for typescript:
+
+```sh
+npm i -D @typescript-eslint/parser @typescript-eslint/eslint-plugin
+```
+
+Create and inflate `.eslintrc.js` file with appropriate rules and options (see the file content for details).
+
+Create `.eslintignore` and add webpack directory.
+
+```txt
+webpack/*
+```
+
+Reload IDE window to apply the changes, add unused variable in the App component and make sure to see an eslint error.
