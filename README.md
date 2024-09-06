@@ -95,3 +95,91 @@ Also do not forget to declare types to import modules in `declarations.d.ts`:
 declare module '*.png';
 declare module '*.svg';
 ```
+
+### Separate webpack configuration for Dev and Prod environments
+
+Install `serve` package to test static build for production mode more easy.
+
+```sh
+npm i -D serve
+```
+
+Also install package to merge webpack configurations.
+
+```sh
+npm i -D webpack-merge
+```
+
+Go to `webpack` directory.
+
+Rename `webpack.config.js` to `webpack.common.js`.
+
+Remove `mode: 'development'` line from `webpack.common.js`.
+
+Create next files:
+
+- webpack.config.js
+- webpack.dev.js
+- webpack.prod.js
+
+File `webpack.config.js`:
+
+```js
+const { merge } = require('webpack-merge');
+const commonConfig = require('./webpack.common.js');
+
+module.exports = (envVars) => {
+  const { env } = envVars;
+  const envConfig = require(`./webpack.${env}.js`);
+  const config = merge(commonConfig, envConfig);
+  return config;
+}
+```
+
+It uses environmental variable `env` to select appropriate config file.Which should be provided from command line in `start` or `build` scripts from `package.json`. It should look like this:
+
+```json
+    "start": "webpack serve --config webpack/webpack.config.js --env env=dev --open --hot",
+    "build": "webpack --config webpack/webpack.config.js --env env=prod",
+```
+
+Now add next lines to `webpack.dev.js`
+
+```js
+
+const webpack = require('webpack');
+
+module.exports = {
+  mode: 'development', // set process.env.NODE_ENV to development
+  devtool: 'cheap-module-source-map',
+  plugins: [
+    // new variable in environment
+    new webpack.DefinePlugin({
+      // custom environment variable
+      // must be used with JSON.stringify to process string properly
+      'process.env.name': JSON.stringify('My Dev'),
+      // in such way add variable from system environment
+      'process.env.TEMP': JSON.stringify(process.env.TEMP)
+    })
+  ]
+}
+```
+
+Add these variables into the App component to check the differences in different modes.
+
+Run npm start to run in development mode and make sure that variables are appropriately displayed on the page.
+
+```sh
+npm start
+```
+
+Use almost the same config for `webpack.prod.js` but set `mode: 'production'` and `devtool: 'source-map'`
+
+Now run `npm run build` to generate static build files.
+Than go to the `build` folder and start static web server:
+
+```sh
+npm run build
+cd build
+npx serve
+```
