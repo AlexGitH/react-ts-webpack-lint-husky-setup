@@ -183,3 +183,25 @@ npm run build
 cd build
 npx serve
 ```
+
+### Support react refresh webpack plugin to keep component state
+
+This is useful to refresh only changed components, the other components will not lose their states.
+
+```sh
+npm install -D @pmmmwh/react-refresh-webpack-plugin react-refresh
+```
+
+Add into `webpack.dev.js` :
+
+```js
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+//........
+
+  plugins: [
+    //..........
+    new ReactRefreshWebpackPlugin()
+  ]
+```
+
+Now it is possible to change text or styles (see. ClickCounter component)
