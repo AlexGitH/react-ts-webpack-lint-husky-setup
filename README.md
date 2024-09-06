@@ -206,7 +206,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 
 Now it is possible to change text or styles (see. ClickCounter component)
 
-### Add eslint
+### Add and configure eslint
 
 Install eslint and relatec packages.
 
