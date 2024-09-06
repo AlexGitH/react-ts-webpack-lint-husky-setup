@@ -208,7 +208,7 @@ Now it is possible to change text or styles (see. ClickCounter component)
 
 ### Add and configure eslint
 
-Install eslint and relatec packages.
+Install eslint and related packages.
 
 >NOTE: `eslint` should be installed with all eslint plugins to resolve conflicts properly.
 
