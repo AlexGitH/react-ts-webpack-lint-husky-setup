@@ -231,3 +231,53 @@ webpack/*
 ```
 
 Reload IDE window to apply the changes, add unused variable in the App component and make sure to see an eslint error.
+
+### Install and configure prettier
+
+Set up prettier plugin for the IDE( for example in VSCode).
+
+Install prettier packages:
+
+```sh
+npm i -D prettier eslint-config-prettier eslint-plugin-prettier
+```
+
+Create `.prettierrc.js` configuration file with the following content:
+
+```js
+module.exports = {
+  semi: true,
+  trailingComma: 'es5',
+  singleQuote: true,
+  jsxSingleQuote: false,
+  printWidth: 80,
+  tabWidth: 2,
+  endOfLine: 'auto'
+}
+```
+
+Add next lines into `extends` section of `.eslintrc.js` file:
+
+```js
+    //....
+    'prettier',
+    'plugin:prettier/recommended',
+    //....
+```
+
+Also create `format` script in the `package.json` to format code in the project easily.
+
+```json
+    "format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
+```
+
+Create `.prettierignore` file and add files to avoid format checking.
+Something like:
+
+```txt
+.eslintrc.js
+webpack/*
+```
+
+Now run `npm run format` to format code in the application.
+Additionally VSCode has ability to configure automatic code formatting on file save.
