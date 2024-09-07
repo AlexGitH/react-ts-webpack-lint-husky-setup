@@ -231,3 +231,33 @@ webpack/*
 ```
 
 Reload IDE window to apply the changes, add unused variable in the App component and make sure to see an eslint error.
+
+Many others plugins can be installed into eslint to improve development experience. For example:
+
+```sh
+npm i -D eslint-plugin-import eslint-plugin-jsx-a11y
+```
+
+In this case `eslint-plugin-import` used to support import/export in ES6+ syntax and prevent misspelling or file path mistakes. `eslint-plugin-jsx-a11y` adds accessability standards in the app in realtime.
+
+Add next to `extends` section of `.eslintrc.js` file
+
+```js
+  extends: [
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/typescript',
+    'plugin:jsx-a11y/recommended'
+  ],
+```
+
+Also add `lint` script into `package.json` file.
+
+```json
+    "lint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\""
+```
+
+To check how it works add declare unused variable in the App component and run `npm run lint`. There should be one linting error in the terminal.
