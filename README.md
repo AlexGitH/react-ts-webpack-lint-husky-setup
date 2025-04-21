@@ -18,8 +18,7 @@ npx tsc --init
 # configure parameters in tsconfig.json according example in tsconfig-example.json
 
 # install other packages for babel
-npm i -D @babel/core @babel
-/preset-env @babel/preset-react @babel/preset-typescript
+npm i -D @babel/core @babel/preset-env @babel/preset-react @babel/preset-typescript
 ```
 
 Add `.babelrc` configuration file:
